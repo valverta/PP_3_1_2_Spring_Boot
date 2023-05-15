@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>All users</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 80%;
+            margin: 0 auto;
+            box-shadow: 0px 0px 20px #ccc;
+            border-radius: 10px;
+        }
+        th, td {
+            text-align: center;
+            padding: 10px;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+            border-radius: 10px 10px 0 0;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        input[type=submit], input[type=button] {
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        input[type=submit]:hover, input[type=button]:hover {
+            background-color: #3e8e41;
+        }
+        input[type=submit]:active, input[type=button]:active {
+            background-color: #3e8e41;
+            transform: translateY(1px);
+        }
+        input[type=button][value="Добавить User`a"] {
+            margin-top: 30px;
+        }
+        h1 {
+            font-size: 2em;
+            font-weight: bold;
+            text-align: center;
+            margin-top: 30px;
+        }
+        body {
+            background-color: #f2f2f2;
+            font-family: Arial, sans-serif;
+        }
+        table th, table td {
+            border-radius: 10px;
+        }
+        form {
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <h1>All Users</h1>
+    <br>
+    <table border="1">
+        <tr>
+            <th>Name</th>
+            <th>Surname</th>
+            <th>Age</th>
+            <th>Options</th>
+        </tr>
+        <tr th:each="user : ${allUser}">
+            <td th:text="${user.getName()}"/>
+            <td th:text="${user.getSurname()}"/>
+            <td th:text="${user.getAge()}"/>
+            <td><form th:action="@{/update-page/{id}(id=${user.getId()})}">
+                    <input type="submit" value="Редактировать"/>
+                </form>
+                <form th:method="DELETE" th:action="@{/{id}(id=${user.getId()})}">
+                    <input type="submit" value="Удалить">
+                </form>
+            </td>
+        </tr>
+    </table>
+    <br>
+    <input type="button" value="Добавить User`a"
+           onclick="window.location.href='post-page'"/>
+</body>
+</html>
